@@ -1,0 +1,32 @@
+
+Run SketchUp Make in container
+==============================
+
+Running SketchUp on Linux requires installation of Wine. That can
+certainly be done as it is packaged for example for Fedora but
+I prefer to keep my core workstation installation free of software
+that I only use from time to time or which I only use for specific
+purpose.
+
+This repository helps me to run SketchUp Make 2017 from container
+image, installed separately from by workstation packages.
+
+Build image
+-----------
+
+This repository does not distribute the actual SketchUp Make binary.
+Download the Windows version from
+
+	https://www.sketchup.com/download/make
+
+and place it to this directory.
+
+Then run
+
+	sudo docker build --build-arg=uid=12345 -t sketchup .
+
+replacing the 12345 with your uid, under which you will want to start
+the container. You can find it out by running
+
+	id -u
+
