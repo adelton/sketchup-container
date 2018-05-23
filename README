@@ -23,10 +23,5 @@ and place it to this directory.
 
 Then run
 
-	sudo docker build --build-arg=uid=12345 -t sketchup .
-
-replacing the 12345 with your uid, under which you will want to start
-the container. You can find it out by running
-
-	id -u
+	sudo docker build --build-arg=uid=$(id -u) -t sketchup .
 
