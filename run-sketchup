@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+mkdir /tmp/wine
+( cd /home/user/.tmp-template && cp -rp . /tmp/wine )
+
+echo [$WINEPREFIX]
+
+if [ "$1" == 'winecfg' ] ; then
+	exec winecfg "$@"
+else
+	exec wine64 $WINEPREFIX/"drive_c/Program Files/SketchUp/SketchUp 2017/SketchUp.exe" "$@"
+fi
