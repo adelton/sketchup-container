@@ -25,3 +25,21 @@ Then run
 
 	sudo docker build --build-arg=uid=$(id -u) -t sketchup .
 
+Run the container
+-----------------
+
+The container image expects the directory with .skp files bind-mounted
+to /data directory in the container. This is an example command to
+run the container, mounting the current directory:
+
+	sudo docker run --tmpfs /tmp -e DISPLAY=$DISPLAY \
+		--security-opt=label:type:spc_t --user=$(id -u):$(id -g) \
+		-v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 \
+		--device=/dev/dri/card0:/dev/dri/card0 \
+		-v $(pwd):/data --rm sketchup
+
+SketchUp and Wine will store some config and state information in
+subdirectory .sketchup-run/ of the directory mounted to /data,
+creating that subdirectory upon the first run if needed. It should be
+safe to remove that subdirectory.
+

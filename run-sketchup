@@ -2,10 +2,18 @@
 
 set -e
 
+if ! [ -d /data/.sketchup-run ] ; then
+	echo "Populating the data directory ..."
+	mkdir -p /data/.sketchup-run
+	( cd /home/user/.local && cp -rp . /data/.sketchup-run/.local/ )
+	( cd /home/user/.wine-template && cp -rp . /data/.sketchup-run/wine )
+fi
 mkdir /tmp/wine
 ( cd /home/user/.tmp-template && cp -rp . /tmp/wine )
 
 echo [$WINEPREFIX]
+export HOME=/data/.sketchup-run
+cd /data
 
 if [ "$1" == 'winecfg' ] ; then
 	exec winecfg "$@"
