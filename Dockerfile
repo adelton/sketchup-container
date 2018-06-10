@@ -5,7 +5,6 @@ RUN useradd -u $uid user
 USER user
 ENV WINEARCH=win64
 RUN xvfb-run winetricks -q vcrun2017
-RUN winetricks -q corefonts
 RUN winetricks -q win7
 WORKDIR /home/user
 COPY sketchupmake-2017-2-2555-90782-en-x64.exe /home/user/
