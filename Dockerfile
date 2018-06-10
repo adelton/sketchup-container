@@ -7,10 +7,7 @@ ENV WINEARCH=win64
 RUN xvfb-run winetricks -q vcrun2017
 RUN winetricks -q corefonts
 RUN winetricks -q win7
-# winetricks -q dotnet452 does not finish, replace with direct .Net 4.5.2 step
 WORKDIR /home/user
-# .Net Framework 4.5.2
-RUN wget https://download.microsoft.com/download/E/2/1/E21644B5-2DF2-47C2-91BD-63C560427900/NDP452-KB2901907-x86-x64-AllOS-ENU.exe && wine NDP452-KB2901907-x86-x64-AllOS-ENU.exe /q && rm -f NDP452-KB2901907-x86-x64-AllOS-ENU.exe
 COPY sketchupmake-2017-2-2555-90782-en-x64.exe /home/user/
 RUN echo '9841792f170d803ae95a2741c44cce38e618660f98a1a3816335e9bf1b45a337  sketchupmake-2017-2-2555-90782-en-x64.exe' | sha256sum -c
 RUN 7za x sketchupmake-2017-2-2555-90782-en-x64.exe SketchUp2017-x64.msi && wine64 msiexec /i SketchUp2017-x64.msi /quiet && rm -f SketchUp2017-x64.msi
