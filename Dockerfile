@@ -23,4 +23,4 @@ COPY run-sketchup /usr/local/bin/
 RUN rm -f /home/user/.wine/drive_c/users/user/"My Documents" && ln -sv /data /home/user/.wine/drive_c/users/user/"My Documents"
 
 ENTRYPOINT [ "/usr/local/bin/run-sketchup" ]
-LABEL RUN 'docker run --tmpfs /tmp -e DISPLAY=$DISPLAY --security-opt=label:type:spc_t --user=$(id -u):$(id -g) -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 --device=/dev/dri/card0:/dev/dri/card0 -v $(pwd):/data --rm sketchup'
+LABEL RUN 'docker run --read-only --tmpfs /tmp -v /tmp/.wine-$(id -u) -e DISPLAY=$DISPLAY --security-opt=label:type:spc_t --user=$(id -u):$(id -g) -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 --device=/dev/dri/card0:/dev/dri/card0 -v $(pwd):/data --rm sketchup'
