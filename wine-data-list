@@ -4,3 +4,5 @@ drive_c/users/user/Application Data/wine_gecko
 drive_c/users/user/Recent
 system.reg
 user.reg
+drive_c/windows/system32/spool
+drive_c/windows/win.ini
