@@ -1,8 +1,16 @@
 FROM registry.fedoraproject.org/fedora:28
-RUN dnf install -y wine winetricks file xorg-x11-server-Xvfb p7zip mesa-dri-drivers && dnf clean all
+RUN dnf install -y wine winetricks file xorg-x11-server-Xvfb p7zip mesa-dri-drivers cups-pdf && dnf clean all
+ARG gid=1000
+RUN groupadd -g $gid user
 ARG uid=1000
-RUN useradd -u $uid user
+RUN useradd -u $uid -g user user
 RUN mkdir /data && chown user /data
+
+RUN chmod a+rx /usr/lib/cups/backend/cups-pdf
+COPY cups-files.conf cups-pdf.conf printers.conf /etc/cups/
+RUN chgrp -R user /etc/cups && chmod g+r /etc/cups/*
+RUN sed -i -e 's%^LogLevel.*%LogLevel debug%' -e 's%^Listen localhost%# &%' -e 's%^Listen /.*%Listen /tmp/cups/cupsd.sock%' /etc/cups/cupsd.conf
+
 USER user
 ENV WINEARCH=win64
 RUN xvfb-run winetricks -q vcrun2017
