@@ -1,0 +1,2 @@
+#!/bin/bash
+LD_PRELOAD=libuid_wrapper.so UID_WRAPPER=1 UID_WRAPPER_ROOT=1 exec /usr/lib/cups/backend/cups-pdf.orig "$@"
