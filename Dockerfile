@@ -34,3 +34,4 @@ RUN rm -f /home/user/.wine/drive_c/users/user/"My Documents" && ln -sv /data /ho
 
 ENTRYPOINT [ "/usr/local/bin/run-sketchup" ]
 LABEL RUN 'docker run --read-only --tmpfs /tmp -v /tmp/.wine-$(id -u) -e DISPLAY=$DISPLAY --security-opt=label:type:spc_t --user=$(id -u):$(id -g) -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 --device=/dev/dri/card0:/dev/dri/card0 -v $(pwd):/data --rm sketchup'
+LABEL RUN_OPTS '--tmpfs /tmp -v /tmp/.wine-$SUDO_UID -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/X0:/tmp/.X11-unix/X0 --device=/dev/dri/card0:/dev/dri/card0'
